@@ -1,12 +1,15 @@
 # Adaptive-RAG 电商客服
 
-基于 FastAPI、LangGraph 和 React 的电商客服演示项目。系统根据问题选择直接回答、单轮检索、多轮检索或业务工具流程，支持政策来源引用、订单查询，以及需要人工确认的业务操作。
+针对多条件政策咨询中证据不充分、回答缺乏依据的问题，实现具备自适应检索能力的电商客服系统。项目采用 FastAPI、LangGraph 和 React，通过动态检索路由、多轮证据补充与忠实度校验提升回答质量，支持政策引用、订单查询与人工确认。
+
+意图识别支持 **TypeSafe Jev 与 DeepSeek 两种后端**：可使用 Jev 的结构化 choice 接口识别业务意图，由后续工作流完成检索、工具调用和回答；Jev 不可用时回退至原有分类链路。
 
 > 当前适合本地演示、学习与工程验证。订单和物流来自演示数据，API 尚未验证请求中的 `user_id`，部署到公网前需要接入可信身份认证。
 
 ## 核心能力
 
-- **自适应路由**：结合意图与问题复杂度选择处理路径。
+- **Jev 意图识别**：支持 TypeSafe System One 接口，按预定义的 14 类业务意图返回标签、置信度与类别概率，使用 Pydantic 校验响应，并可通过规则覆盖层修正易混淆意图。
+- **自适应路由**：结合意图与问题复杂度，选择直接回答、单轮检索、多轮检索、工具执行或拒答路径。
 - **混合检索**：BM25 + 稠密向量召回，经 RRF 融合与可选 Cross-Encoder 精排。
 - **证据校验**：查询改写、多轮补充检索、回答忠实度检查与自纠错。
 - **文档入库**：支持 Markdown；安装可选依赖与系统工具后可解析 PDF、Office 等格式。
@@ -20,13 +23,25 @@
 ## 工作流程
 
 ```text
-用户 → Web / HTTP API → 输入护栏 → 意图识别与路由
-                                  ├─ 直接回答
-                                  ├─ 检索 → 精排 → 必要时补充检索
-                                  ├─ 规划 → 工具执行 / 人工确认
-                                  └─ 拒答
-                      → 生成与忠实度检查 → 会话记忆 → 回答与引用
+用户 → Web / HTTP API → 输入护栏
+     → 意图识别（可选 Jev / 默认 DeepSeek）→ 复杂度路由
+       ├─ 直接回答
+       ├─ 检索 → 精排 → 必要时补充检索
+       ├─ 规划 → 工具执行 / 人工确认
+       └─ 拒答
+     → 生成与忠实度检查 → 会话记忆 → 回答与引用
 ```
+
+## 模型分工
+
+| 组件 | 模型或实现 | 职责 |
+| --- | --- | --- |
+| 意图识别 | 可选 TypeSafe Jev，配置默认 `jev-1.13.0`；默认后端为 DeepSeek | 识别退款、退换货、物流、转人工等业务诉求 |
+| 工作流中的 LLM | DeepSeek，默认 `deepseek-chat` | 复杂度判断、查询改写、任务规划、回答生成、忠实度检查与记忆摘要 |
+| 稠密召回 | 本地 `BAAI/bge-small-zh-v1.5`，或配置的远程向量接口 | 将文本与查询编码为向量 |
+| 精排 | 可选本地 `BAAI/bge-reranker-base` | 对召回片段重新评分 |
+
+Jev 仅替换意图分类节点，切换后其余 LLM 节点仍使用 DeepSeek；未配置 DeepSeek 密钥时，其余流程使用离线演示逻辑。
 
 ## 本地快速开始
 
@@ -48,7 +63,10 @@ Copy-Item .env.example .env
 
 | 配置 | 说明 |
 | --- | --- |
-| `DEEPSEEK_API_KEY` | 可选；填写后启用真实模型调用，可能产生 API 费用 |
+| `DEEPSEEK_API_KEY` | 启用 DeepSeek 工作流及默认意图分类；真实 API 调用可能产生费用 |
+| `INTENT_BACKEND` | `deepseek`（默认）或 `jev`，只切换意图识别后端 |
+| `JEV_API_KEY` | 使用 Jev 意图分类时需要，仅填写在本地 `.env` |
+| `JEV_MODEL` | Jev 模型名，当前项目配置默认 `jev-1.13.0` |
 | `DATABASE_URL` | 默认 `sqlite+aiosqlite:///./data/local/app.db` |
 | `KNOWLEDGE_DIR` | 默认 `knowledge`，启动时入库 |
 | `LOCAL_EMBEDDING_ENABLED` | 本地语义向量开关 |
@@ -56,6 +74,29 @@ Copy-Item .env.example .env
 | `REDIS_URL` / `QDRANT_URL` | 可选外部缓存与向量服务地址 |
 
 不配置 DeepSeek 密钥时，系统使用离线演示逻辑，回答质量与真实模型模式不同。完整变量见 [配置参考](docs/07-configuration.md) 与 [.env.example](.env.example)。
+
+### 启用 Jev 意图识别
+
+在本地 `.env` 中修改以下配置，并填入自己的密钥；下面的值仅为占位示例：
+
+```dotenv
+INTENT_BACKEND=jev
+JEV_API_KEY=your_jev_api_key
+JEV_ENDPOINT=https://api.typesafe.ai/v1/systemone
+JEV_MODEL=jev-1.13.0
+JEV_TIMEOUT_SECONDS=10
+JEV_MAX_RETRIES=2
+JEV_INTENT_APPLY_OVERLAY=true
+
+# 后续 LLM 节点及 Jev 失败后的原有分类链路仍使用此配置
+DEEPSEEK_API_KEY=your_deepseek_api_key
+```
+
+修改后重启后端。恢复原有意图分类只需将 `INTENT_BACKEND` 改回 `deepseek`。
+
+Jev 接入通过 HTTP 请求完成，无需额外安装专用 SDK。请求使用预定义的意图选项，响应经 Pydantic 校验后转换为统一的分类结果。密钥缺失、请求失败或响应不合法时，自动回退至原有 `IntentClassifier`；该链路优先使用配置的 DeepSeek，离线或模型调用失败时采用规则分类。可重试错误使用指数退避，`JEV_MAX_RETRIES` 在实现中表示最大尝试次数。
+
+`JEV_INTENT_APPLY_OVERLAY` 控制 Jev 成功分类后的规则纠偏，默认开启；它不控制回退分类器自身的覆盖层。实现见 [Jev 分类器](app/agents/nodes/intent_jev.py) 与 [工作流接入](app/agents/graph.py)。
 
 ### 可选模型与文档解析
 
@@ -142,6 +183,16 @@ npm run build
 测试配置会隔离本地模型密钥，并使用测试数据库。独立运行评测时，应确认模型和网络配置；真实模型评测可能产生费用。
 
 历史评测及其数据集、模型、日期和局限见 [实测记录](eval/MEASURED.md) 与 [评测报告](docs/14-evaluation-report.md)。历史结果不代表当前版本已重新验证，也不代表真实业务场景的效果保证。
+
+### Jev 与 DeepSeek 意图对比
+
+配置两种模型的本地密钥后，可在相同样本与相同规则覆盖设置下进行对比：
+
+```powershell
+.\.venv\Scripts\python.exe -m eval.compare_intent --backend both --limit 10 --no-overlay --output data/local/intent-comparison.json
+```
+
+报告包含准确率、P50/P95 延迟、回退次数与规则覆盖次数。`--no-overlay` 会关闭两种分类器的规则纠偏，便于观察模型分类结果；省略此参数可比较包含覆盖层的效果。当前数据集属于开发集，报告准确率包含回退样本，不能直接作为 Jev 独立模型的泛化能力结论。该命令会调用真实接口，可能产生费用；历史 DeepSeek 评测数字不应作为 Jev 的成绩。实现见 [意图对比脚本](eval/compare_intent.py)。
 
 ## 项目结构
 
