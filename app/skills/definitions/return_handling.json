@@ -1,0 +1,12 @@
+{
+  "name": "return_handling",
+  "description": "退货处理标准流程",
+  "triggers": ["退货", "换货", "7天无理由"],
+  "steps": [
+    "确认订单号与商品是否定制",
+    "检索退换货政策",
+    "判断是否在时效内",
+    "如需提交申请则创建待确认写操作"
+  ],
+  "tools": ["get_order", "get_order_items", "search_knowledge", "create_return_request"]
+}

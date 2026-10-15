@@ -1,0 +1,7 @@
+{
+  "name": "product_recommend",
+  "description": "商品推荐",
+  "triggers": ["推荐", "有没有类似"],
+  "steps": ["理解需求", "搜索/推荐商品", "核对库存"],
+  "tools": ["search_products", "recommend_products", "check_inventory"]
+}

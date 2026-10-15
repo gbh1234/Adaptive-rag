@@ -1,0 +1,100 @@
+[project]
+name = "adaptive-rag-cs"
+version = "0.1.0"
+description = "Adaptive-RAG multi-agent e-commerce customer service"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115.0,<0.116",
+    "uvicorn[standard]>=0.32.0,<0.33",
+    "pydantic>=2.9.0,<3",
+    "pydantic-settings>=2.6.0,<3",
+    "httpx>=0.27.0,<0.29",
+    "sqlalchemy>=2.0.36,<2.1",
+    "greenlet>=3.1.0,<4",
+    "asyncpg>=0.30.0,<0.31",
+    "aiosqlite>=0.20.0,<0.21",
+    "alembic>=1.14.0,<1.15",
+    "qdrant-client>=1.12.0,<1.13",
+    "redis>=5.2.0,<6",
+    "langgraph>=0.2.50,<0.3",
+    "langchain-core>=0.3.20,<0.4",
+    "jieba>=0.42.1",
+    "rank-bm25>=0.2.2",
+    "orjson>=3.10.0,<4",
+    "python-json-logger>=2.0.7,<4",
+    "tenacity>=9.0.0,<10",
+    "prometheus-client>=0.21.0,<0.22",
+    "sse-starlette>=2.1.0,<3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0,<9",
+    "pytest-asyncio>=0.24.0,<1",
+    "pytest-cov>=6.0.0,<7",
+    "httpx>=0.27.0",
+    "ruff>=0.8.0,<0.9",
+    "mypy>=2.0,<3",
+]
+rerank = [
+    "sentence-transformers>=3.1.0,<4",
+    "modelscope>=1.20.0,<2",
+]
+docs = [
+    "unstructured[md,pdf,docx,pptx]>=0.16.0,<1",
+]
+
+[project.scripts]
+adaptive-rag-cli = "app.cli:main"
+
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["app*", "eval*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["."]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = [
+    "E501",
+    # FastAPI 惯用法：依赖注入写在参数默认值里，B008 属误报。
+    "B008",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# 测试里断言“任意异常”是常见写法。
+"tests/**" = ["B017"]
+
+[tool.mypy]
+python_version = "3.11"
+files = ["app", "eval"]
+ignore_missing_imports = true
+show_error_codes = true
+
+# Tool 基类用模板方法：子类把 execute 的 payload 从 BaseModel 收窄到具体 Input 模型。
+# 这在类型论上违反 LSP，但在本框架里是安全的（调用方经 registry 按具体类型派发），
+# 因此关闭 override 检查。若要严格检查，应把 Tool 改成泛型 Tool[P]。
+disable_error_code = ["override"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.ruff.lint.isort]
+known-first-party = ["app", "eval"]
+combine-as-imports = true

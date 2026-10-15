@@ -1,0 +1,32 @@
+# 统一换行符为 LF，避免跨平台 diff 噪音
+* text=auto eol=lf
+
+# 二进制文件不做换行转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ico binary
+
+# 明确文本类型
+*.py text eol=lf
+*.md text eol=lf
+*.toml text eol=lf
+*.json text eol=lf
+*.jsonl text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.txt text eol=lf
+*.ini text eol=lf
+*.cfg text eol=lf
+*.mako text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+
+# 语言统计时把文档类排除出“代码”口径
+docs/** linguist-documentation
+knowledge/** linguist-documentation

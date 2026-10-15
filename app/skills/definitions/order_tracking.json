@@ -1,0 +1,7 @@
+{
+  "name": "order_tracking",
+  "description": "订单与物流跟踪",
+  "triggers": ["物流", "快递", "到哪了"],
+  "steps": ["查询订单", "查询物流轨迹", "解释当前状态与时效"],
+  "tools": ["get_order", "track_shipment"]
+}

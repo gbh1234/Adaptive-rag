@@ -1,0 +1,66 @@
+{"id": "r001", "query": "定制商品能不能七天无理由退货", "relevant_doc_ids": ["return_policy"], "gold_answer_contains": ["定制", "无理由"]}
+{"id": "r002", "query": "满59包邮吗偏远地区呢", "relevant_doc_ids": ["shipping", "coupons"], "gold_answer_contains": ["59", "偏远"]}
+{"id": "r003", "query": "质量问题运费谁承担", "relevant_doc_ids": ["return_policy"], "gold_answer_contains": ["质量", "运费"]}
+{"id": "r004", "query": "电子发票多久能开", "relevant_doc_ids": ["faq"], "gold_answer_contains": ["发票"]}
+{"id": "r005", "query": "数码保修多长时间", "relevant_doc_ids": ["warranty"], "gold_answer_contains": ["12"]}
+{"id": "r006", "query": "花呗可以分期吗", "relevant_doc_ids": ["faq"], "gold_answer_contains": ["花呗"]}
+{"id": "r007", "query": "订单多久不支付会取消", "relevant_doc_ids": ["faq"], "gold_answer_contains": ["30"]}
+{"id": "r008", "query": "积分怎么抵钱", "relevant_doc_ids": ["faq"], "gold_answer_contains": ["积分"]}
+{"id": "r009", "query": "客服工作时间到几点", "relevant_doc_ids": ["faq"], "gold_answer_contains": ["9:00"]}
+{"id": "r010", "query": "夜间能不能审核退款", "relevant_doc_ids": ["faq"], "gold_answer_contains": ["夜间"]}
+{"id": "r011", "query": "拆封的数码产品能无理由退吗", "relevant_doc_ids": ["return_policy"], "gold_answer_contains": ["拆封"]}
+{"id": "r012", "query": "质量问题要在几天内提交凭证", "relevant_doc_ids": ["return_policy"], "gold_answer_contains": ["15"]}
+{"id": "r013", "query": "超过7天又没有质量问题能退吗", "relevant_doc_ids": ["return_policy"], "gold_answer_contains": ["不能"]}
+{"id": "r014", "query": "贴身服饰洗了还能退吗", "relevant_doc_ids": ["return_policy"], "gold_answer_contains": ["洗涤"]}
+{"id": "r015", "query": "江浙沪多久发货", "relevant_doc_ids": ["shipping"], "gold_answer_contains": ["48"]}
+{"id": "r016", "query": "新疆要多久能到", "relevant_doc_ids": ["shipping"], "gold_answer_contains": ["偏远"]}
+{"id": "r017", "query": "偏远附加费多少钱", "relevant_doc_ids": ["shipping"], "gold_answer_contains": ["8"]}
+{"id": "r018", "query": "支付后多久没发货可以催", "relevant_doc_ids": ["shipping"], "gold_answer_contains": ["48"]}
+{"id": "r019", "query": "物流停滞多久可以找客服", "relevant_doc_ids": ["shipping"], "gold_answer_contains": ["48"]}
+{"id": "r020", "query": "家居百货保修几个月", "relevant_doc_ids": ["warranty"], "gold_answer_contains": ["3"]}
+{"id": "r021", "query": "进水了能保修吗", "relevant_doc_ids": ["warranty"], "gold_answer_contains": ["进液"]}
+{"id": "r022", "query": "保修检测要多久", "relevant_doc_ids": ["warranty"], "gold_answer_contains": ["3-7"]}
+{"id": "r023", "query": "NEW10满多少能用", "relevant_doc_ids": ["coupons"], "gold_answer_contains": ["99"]}
+{"id": "r024", "query": "新客券能和品类券叠加吗", "relevant_doc_ids": ["coupons"], "gold_answer_contains": ["叠加"]}
+{"id": "r025", "query": "包邮券能抵偏远附加费吗", "relevant_doc_ids": ["coupons", "shipping"], "gold_answer_contains": ["偏远"]}
+{"id": "r026", "query": "积分能不能抵运费", "relevant_doc_ids": ["faq", "coupons"], "gold_answer_contains": ["运费"]}
+{"id": "r027", "query": "定制商品能用NEW10吗", "relevant_doc_ids": ["coupons"], "gold_answer_contains": ["定制"]}
+{"id": "r028", "query": "退款原路返回多久到账", "relevant_doc_ids": ["return_policy"], "gold_answer_contains": ["1-3"]}
+{"id": "r029", "query": "签收后要不要检查包装", "relevant_doc_ids": ["shipping"], "gold_answer_contains": ["包装"]}
+{"id": "r030", "query": "电子发票能拆分开吗", "relevant_doc_ids": ["faq"], "gold_answer_contains": ["拆分"]}
+{"id": "r031", "query": "私拆耳机还保修吗", "relevant_doc_ids": ["warranty"], "gold_answer_contains": ["私拆"]}
+{"id": "r032", "query": "预售商品按什么时间发货", "relevant_doc_ids": ["shipping"], "gold_answer_contains": ["预售"]}
+{"id": "r033", "query": "耳机绑定序列号后还能七天无理由吗", "relevant_doc_ids": ["return_electronics"], "gold_answer_contains": ["激活"]}
+{"id": "r034", "query": "衣服洗了还能退吗尺码差多少算质量问题", "relevant_doc_ids": ["return_apparel", "exchange_size"], "gold_answer_contains": ["洗涤"]}
+{"id": "r035", "query": "生鲜拆封了能退吗变质怎么赔", "relevant_doc_ids": ["return_food"], "gold_answer_contains": ["拆封"]}
+{"id": "r036", "query": "定制文案下单后还能改多久", "relevant_doc_ids": ["return_custom"], "gold_answer_contains": ["2 小时"]}
+{"id": "r037", "query": "同一件衣服最多能换几次", "relevant_doc_ids": ["exchange_size"], "gold_answer_contains": ["2 次"]}
+{"id": "r038", "query": "漏发了要多久补发", "relevant_doc_ids": ["missing_wrong_item"], "gold_answer_contains": ["24"]}
+{"id": "r039", "query": "花呗退款额度什么时候恢复", "relevant_doc_ids": ["refund_timeline"], "gold_answer_contains": ["花呗"]}
+{"id": "r040", "query": "上门取件码是什么开头多少钱", "relevant_doc_ids": ["pickup_return"], "gold_answer_contains": ["QM"]}
+{"id": "r041", "query": "舟山岛屿运费怎么算", "relevant_doc_ids": ["shipping_remote"], "gold_answer_contains": ["15"]}
+{"id": "r042", "query": "拆单发货会不会收两次运费", "relevant_doc_ids": ["shipping_split"], "gold_answer_contains": ["不重复"]}
+{"id": "r043", "query": "货到付款手续费多少哪些地区支持", "relevant_doc_ids": ["shipping_cod"], "gold_answer_contains": ["6"]}
+{"id": "r044", "query": "显示已签收但没收到货怎么办", "relevant_doc_ids": ["logistics_exception"], "gold_answer_contains": ["丢件"]}
+{"id": "r045", "query": "已经有运单号了还能改到外省吗", "relevant_doc_ids": ["shipping_address"], "gold_answer_contains": ["跨省"]}
+{"id": "r046", "query": "充电电池保修多久", "relevant_doc_ids": ["warranty_battery"], "gold_answer_contains": ["6"]}
+{"id": "r047", "query": "空调安装打孔超过两个收费吗", "relevant_doc_ids": ["install_appliance"], "gold_answer_contains": ["打孔"]}
+{"id": "r048", "query": "过保上门检测费多少钱", "relevant_doc_ids": ["repair_onsite"], "gold_answer_contains": ["60"]}
+{"id": "r049", "query": "镀金饰品保修几天", "relevant_doc_ids": ["warranty_jewelry"], "gold_answer_contains": ["30"]}
+{"id": "r050", "query": "花呗12期大概费率多少", "relevant_doc_ids": ["installment_huabei"], "gold_answer_contains": ["0.75"]}
+{"id": "r051", "query": "专票要几个工作日能开", "relevant_doc_ids": ["invoice_vat"], "gold_answer_contains": ["5"]}
+{"id": "r052", "query": "PLUS会员每月几张运费券", "relevant_doc_ids": ["membership_plus"], "gold_answer_contains": ["3"]}
+{"id": "r053", "query": "积分过期是几个月", "relevant_doc_ids": ["points_expiry"], "gold_answer_contains": ["24"]}
+{"id": "r054", "query": "客服能不能要我短信验证码", "relevant_doc_ids": ["account_security"], "gold_answer_contains": ["验证码"]}
+{"id": "r055", "query": "礼品卡最小面值多少不能提现吗", "relevant_doc_ids": ["gift_card"], "gold_answer_contains": ["50"]}
+{"id": "r056", "query": "T恤M码胸围是多少", "relevant_doc_ids": ["size_guide"], "gold_answer_contains": ["96"]}
+{"id": "r057", "query": "直播定金尾款开始后还能退吗", "relevant_doc_ids": ["live_presale"], "gold_answer_contains": ["定金"]}
+{"id": "r058", "query": "跨境购能七天无理由吗清关多久", "relevant_doc_ids": ["cross_border"], "gold_answer_contains": ["清关"]}
+{"id": "r059", "query": "投诉一般多久必须回复", "relevant_doc_ids": ["complaint_sla"], "gold_answer_contains": ["24"]}
+{"id": "r060", "query": "凌晨能转人工退款审核吗", "relevant_doc_ids": ["handoff_hours"], "gold_answer_contains": ["9:00"]}
+{"id": "r061", "query": "价保几天价差多少可以补", "relevant_doc_ids": ["price_protect"], "gold_answer_contains": ["15"]}
+{"id": "r062", "query": "到货通知保留多久", "relevant_doc_ids": ["restock_notify"], "gold_answer_contains": ["30"]}
+{"id": "r063", "query": "礼品包装多少钱发票给谁", "relevant_doc_ids": ["packaging_gift"], "gold_answer_contains": ["8"]}
+{"id": "r064", "query": "客服可以查看我完整手机号吗", "relevant_doc_ids": ["privacy_cs"], "gold_answer_contains": ["后 4 位"]}
+{"id": "r065", "query": "秒杀能用NEW10吗能不能叠加PLUS运费券", "relevant_doc_ids": ["promo_stacking", "membership_plus"], "gold_answer_contains": ["秒杀"]}
+
